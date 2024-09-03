@@ -4,8 +4,10 @@ const Navbar = () => {
   return (
     <div>
       <nav className='bg-blue-900 text-white  flex justify-between px-4 h-16 items-center'>
-        <div className="logo font-bold text-lg">
-            GetMeATea!
+        <div className="logo font-bold text-lg flex justify-center items-center">
+            <img src="tea.gif" width={60} alt="" />
+
+          <span>  GetMeATea!</span>
         </div>
         <ul className='flex justify-between gap-4 '>
             <li>Home</li>

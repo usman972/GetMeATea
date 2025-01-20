@@ -6,26 +6,18 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const [showdropdown, setShowdropdown] = useState(false)
-  // if (session) {
-  //   return (
-  //     <>
-  //       Signed in as {session.user.email} <br />
-  //       <button onClick={() => signOut()}>Sign out</button>
-  //     </>
-  //   );
-  // return (
-  //   <>
-  //     Not signed in <br />
-  //     <button onClick={() => signIn()}>Sign in</button>
-  //   </>
-  // );
-  //}
+  const [showdropdown, setShowdropdown] = useState(false);
+
   return (
     <nav className="bg-gray-900 text-white flex  justify-between px-4 h-16 items-center">
-      <div className="logo flex justify-center items-center font-bold text-lg">
-        <img src="/tea3.gif" width={44} alt=""></img>
-        <span>GetMeATea!</span>{" "}
+      <div>
+        <Link
+          className="logo flex justify-center items-center font-bold text-lg"
+          href={"/"}
+        >
+          <img src="/tea3.gif" width={44} alt=""></img>
+          <span>GetMeATea!</span>{" "}
+        </Link>
       </div>
       {/* <ul className='flex justify-between gap-4'>
         <li>Home</li>
@@ -37,8 +29,14 @@ const Navbar = () => {
       <div className="relative">
         {session && (
           <>
-            <button 
-            onClick={()=>{setShowdropdown(!showdropdown)}}
+            <button
+              onClick={() => {
+                setTimeout(() => {
+                  setShowdropdown(false)
+                }, 3000);
+                setShowdropdown(!showdropdown);
+              }}
+             
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
               className="text-white mx-4  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ouLine-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -64,38 +62,36 @@ const Navbar = () => {
 
             <div
               id="dropdown"
-              className={`z-10 ${showdropdown?"":"hidden"} absolute left-[130px] bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+              className={`z-10 ${
+                showdropdown ? "" : "hidden"
+              } absolute left-[130px] bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
             >
               <ul
                 className="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownDefaultButton"
               >
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/dashboard"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
-                    Settings
-                  </a>
+                    Your Page
+                  </Link>
                 </li>
+
                 <li>
                   <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Earnings
-                  </a>
-                </li>
-                <li>
-                  <a
+                    onClick={() => {
+                      signOut();
+                    }}
                     href="#"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
@@ -106,17 +102,11 @@ const Navbar = () => {
             </div>
           </>
         )}
-        {session && (
-          <Link href={"/dashboard"}>
-            <button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:ouLine-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-              Dashboard
-            </button>
-          </Link>
-        )}
+
         {session && (
           <button
             onClick={() => {
-              signOut;
+              signOut();
             }}
             className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:ouLine-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
